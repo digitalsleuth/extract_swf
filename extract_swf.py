@@ -12,12 +12,6 @@ import zlib
 from time import time
 
 def open_file(filename):
-    if len(sys.argv) < 2:
-        print("Usage: %s <filename>" % sys.argv[0])
-        sys.exit(1)
-    if not filename or not os.path.isfile(filename):
-        print("Error: Unable to read file %s" % repr(filename))
-        sys.exit(2)
     print("Reading: %s" % repr(filename))
     with open(filename, "rb") as f:
         buffer = f.read()
@@ -52,4 +46,11 @@ def parse_file(buffer):
                 f.write(swf)
             print("  Wrote swf to %s" % (out_filename))
 
-open_file(sys.argv[1])
+if len(sys.argv) < 2:
+    print("Usage: %s <filename>" % sys.argv[0])
+    sys.exit(1)
+if not sys.argv[1] or not os.path.isfile(sys.argv[1]):
+    print("Error: Unable to read file %s" % repr(sys.argv[1]))
+    sys.exit(2)
+else:
+    open_file(sys.argv[1])
